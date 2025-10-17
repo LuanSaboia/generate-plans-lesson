@@ -1,0 +1,22 @@
+.plans-container {
+  max-width: 800px;
+  margin: 40px auto;
+}
+
+.plan-card {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #fafafa;
+}
+
+.plan-card summary {
+  cursor: pointer;
+}
+
+.plan-card pre {
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 4px;
+}

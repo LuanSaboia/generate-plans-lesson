@@ -1,0 +1,36 @@
+.generate-container {
+  max-width: 600px;
+  margin: 40px auto;
+}
+
+.generate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.generate-form input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.generate-form button {
+  padding: 8px;
+  border: none;
+  background: #28a745;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.generate-form button:hover {
+  background: #218838;
+}
+
+.generate-result {
+  margin-top: 20px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+}
