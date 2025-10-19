@@ -24,8 +24,8 @@ Gera **planos de aula completos** com IA (Google Gemini) e salva tudo no **Supab
 
 ### Tabela `lesson_plans`
 ```sql
-create table if not exists lesson_plans (
-  id uuid primary key default gen_random_uuid(),
+create table lesson_plans (
+  id uuid primary key default uuid_generate_v4(),
   tema text not null,
   serie text not null,
   duracao text not null,
