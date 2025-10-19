@@ -104,7 +104,7 @@ Authorization: Bearer <ANON_KEY>
 
 | Tema | Decisão |
 |------|--------|
-| Modelo IA | `gemini-2.5-flash-lite` (5s a 10s de execução) adotado após testes com `gemini-2.5-flash` (<30s de execução) |
+| Modelo IA | `gemini-2.5-flash-lite` (5s a 10s de execução) adotado após testes com `gemini-2.5-flash` (>30s de execução) |
 | Arq. Backend | Edge Function no Supabase faz o parse e insere no banco |
 | Estrutura DB | Uma tabela simples (`lesson_plans`) e RLS com políticas públicas |
 
