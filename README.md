@@ -66,7 +66,7 @@ with check (true);
 
 **Exemplo (Postman):**
 ```http
-POST https://<PROJECT>.supabase.co/functions/v1/generate_lesson_plan
+POST https://xgevwldvvuougszyjxkc.supabase.co/functions/v1/generate_lesson_plan
 Content-Type: application/json
 Authorization: Bearer <ANON_KEY>
 
