@@ -1,27 +1,38 @@
 .app-container {
-  padding: 20px;
+  font-family: "Poppins", sans-serif;
+  background-color: #f7f9fc;
+  min-height: 100vh;
+}
+
+.app-header {
+  background-color: #0b2b7a;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  margin-bottom: 10px;
 }
 
 nav {
-  margin-bottom: 20px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 }
 
-nav button {
-  margin: 0 8px;
-  padding: 6px 12px;
-  border: none;
-  background: #0069d9;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: 0.3s;
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-nav button:hover {
-  background: #004a9f;
+nav a:hover {
+  color: #cdd9ff;
 }
 
-nav button.active {
-  background: #004a9f;
+main {
+  padding: 40px 20px;
 }

@@ -1,22 +1,85 @@
-.plans-container {
-  max-width: 800px;
+.plans-table-container {
+  max-width: 1200px;
   margin: 40px auto;
+  background: #f9fafc;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.plan-card {
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 12px;
-  margin-bottom: 12px;
-  background: #fafafa;
+.page-title {
+  color: #0d2970;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.plan-card summary {
+.plans-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.plans-table th {
+  background-color: #0d2970;
+  color: white;
+  font-weight: 600;
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #e0e6f0;
+}
+
+.plans-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e4e8f0;
+  color: #333;
+  font-size: 0.95rem;
+  vertical-align: top;
+}
+
+.plans-table tr:hover {
+  background-color: #eef3ff;
   cursor: pointer;
 }
 
-.plan-card pre {
-  background: #f9f9f9;
-  padding: 10px;
-  border-radius: 4px;
+.plans-table td.tema {
+  font-weight: 600;
+  color: #0d2970;
+}
+
+.plans-table td.descricao {
+  color: #444;
+  font-style: italic;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+}
+
+.loading {
+  text-align: center;
+  color: #0d2970;
+  margin-top: 40px;
+  font-weight: 600;
+}
+
+.clickable-row {
+  transition: background 0.2s ease;
+}
+
+.clickable-row:hover {
+  background-color: #f1f5ff;
+}
+
+/* Remove qualquer barra lateral horizontal */
+body {
+  overflow-x: hidden;
 }

@@ -1,55 +1,113 @@
 import { useState } from "react";
-import { LessonPlan } from "../types/types";
 import "../styles/generateplan.css";
+import PlanModal from "../components/PlanModal";
 
 export default function GeneratePlanPage() {
   const [form, setForm] = useState({
     tema: "",
-    serie: "",
     duracao: "",
+    serie: "",
     disciplina: "",
     objetivo: "",
   });
-  const [result, setResult] = useState<LessonPlan | null>(null);
+
   const [loading, setLoading] = useState(false);
+  const [generatedPlan, setGeneratedPlan] = useState(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const res = await fetch("https://xgevwldvvuougszyjxkc.supabase.co/functions/v1/generate_lesson_plan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    setGeneratedPlan(null);
 
-    const data = await res.json();
-    setResult(data.data?.[0]);
+    try {
+      const res = await fetch(
+        "https://xgevwldvvuougszyjxkc.supabase.co/functions/v1/generate_lesson_plan",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(form),
+        }
+      );
+
+      const data = await res.json();
+      if (data.success && data.data?.length > 0) {
+        setGeneratedPlan(data.data[0]);
+      }
+    } catch (err) {
+      console.error("Erro ao gerar plano:", err);
+    }
+
     setLoading(false);
   }
 
   return (
-    <div className="generate-container">
+    <div className="generate-wrapper">
       <h2>Gerar Plano de Aula</h2>
-      <form className="generate-form" onSubmit={handleSubmit}>
-        {Object.keys(form).map((key) => (
+
+      <form onSubmit={handleSubmit} className="generate-form">
+        <div className="form-group full">
+          <label>Tema</label>
           <input
-            key={key}
-            placeholder={key}
-            value={(form as any)[key]}
-            onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+            type="text"
+            value={form.tema}
+            onChange={(e) => setForm({ ...form, tema: e.target.value })}
             required
           />
-        ))}
+        </div>
+
+        <div className="form-row">
+          <div className="form-group" style={{ marginRight: "10px" }}>
+            <label>Duração</label>
+            <input
+              type="text"
+              value={form.duracao}
+              onChange={(e) => setForm({ ...form, duracao: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="form-group" style={{ marginLeft: "10px" }}>
+            <label>Série</label>
+            <input
+              type="text"
+              value={form.serie}
+              onChange={(e) => setForm({ ...form, serie: e.target.value })}
+              required
+            />
+          </div>
+        </div>
+
+        <div className="form-group full">
+          <label>Disciplina</label>
+          <input
+            type="text"
+            value={form.disciplina}
+            onChange={(e) => setForm({ ...form, disciplina: e.target.value })}
+            required
+          />
+        </div>
+
+        <div className="form-group full">
+          <label>Objetivo</label>
+          <textarea
+            rows={5}
+            value={form.objetivo}
+            onChange={(e) => setForm({ ...form, objetivo: e.target.value })}
+            placeholder="Descreva o objetivo principal da aula..."
+            required
+          ></textarea>
+        </div>
+
         <button type="submit" disabled={loading}>
           {loading ? "Gerando..." : "Gerar Plano"}
         </button>
       </form>
 
-      {result && (
-        <div className="generate-result">
-          <h3>Plano Gerado</h3>
-          <pre>{JSON.stringify(result, null, 2)}</pre>
-        </div>
+      {generatedPlan && (
+        <PlanModal
+          plan={generatedPlan}
+          onClose={() => setGeneratedPlan(null)}
+        />
       )}
     </div>
   );

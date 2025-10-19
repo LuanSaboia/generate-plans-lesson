@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabase";
-import "../styles/login.css";
+import "../styles/auth.css";
 
 interface LoginPageProps {
   onLogin: (user: any) => void;
@@ -9,27 +9,43 @@ interface LoginPageProps {
 export default function LoginPage({ onLogin }: LoginPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
-  async function handleLogin(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-    if (error) {
-      alert(error.message);
+    setError("");
+
+    if (isRegister) {
+      // Cadastro
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      if (error) setError(error.message);
+      else alert("Cadastro realizado! Verifique seu e-mail para confirmar.");
     } else {
-      onLogin(data.user);
+      // Login
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) setError(error.message);
+      else onLogin(data.user);
     }
-  }
+
+    setLoading(false);
+  };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+    <div className="auth-container">
+      <h2>{isRegister ? "Cadastro de Professor" : "Login do Professor"}</h2>
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
-          placeholder="E-mail"
+          placeholder="E-mail institucional"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -41,10 +57,29 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
+        {error && <p className="error">{error}</p>}
         <button type="submit" disabled={loading}>
-          {loading ? "Entrando..." : "Entrar"}
+          {loading ? "Carregando..." : isRegister ? "Cadastrar" : "Entrar"}
         </button>
       </form>
+
+      <p>
+        {isRegister ? (
+          <>
+            Já possui conta?{" "}
+            <span className="link" onClick={() => setIsRegister(false)}>
+              Faça login
+            </span>
+          </>
+        ) : (
+          <>
+            Ainda não tem conta?{" "}
+            <span className="link" onClick={() => setIsRegister(true)}>
+              Cadastre-se
+            </span>
+          </>
+        )}
+      </p>
     </div>
   );
 }
